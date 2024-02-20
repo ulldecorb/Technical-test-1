@@ -1,33 +1,61 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
+const TASK_LIST = [
+  {
+    id: crypto.randomUUID(),
+    task: 'Buy pet meal',
+    date: Date.now()
+  },
+  {
+    id: crypto.randomUUID(),
+    task: 'Rob bank',
+    date: Date.now()
+  }
+]
+
 function App() {
-  const [count, setCount] = useState(0)
+  const [list, setList] = useState(TASK_LIST);
+
+
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <header>
+        <h1>Technical Test</h1>
+      </header>
+      <main>
+        <section>
+          <form action="addTask">
+            <label htmlFor="task">
+              <input 
+                type="text" 
+                id="task" 
+                name="task" 
+                placeholder='Añade una tarea'
+                required
+              />
+            </label>
+          </form>
+        </section>
+        <section>
+          {list &&
+              (<ol>
+                {list.map(task =>{ 
+                  return (
+                    <li
+                    key={task.id}>
+                        <p>{task.task}</p>
+                        <button>
+                          ❌
+                        </button>
+                    </li>
+                  )}
+                )}
+              </ol>)
+          }
+        </section>
+      </main>
     </>
   )
 }
